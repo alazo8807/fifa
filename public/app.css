@@ -1,0 +1,73 @@
+/*General*/
+section h1{
+    margin-left: 15px;
+    margin-bottom: 40px;
+    /*color: purple;*/
+}
+
+a, a:visited, a:hover, a:active {
+  color: inherit;
+}
+
+section{
+    padding: 40px 0;
+}
+
+/*Tournament Cards*/
+#tournament-cards .container{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    /*justify-content: center;*/
+}
+
+#tournament-cards .container .card{
+    max-width: 20rem;
+    margin: 20px;
+}
+
+@media (max-width:1100px) {
+  #tournament-cards .container .card{
+    max-width: 50%;
+    flex:40%;
+    margin: 15px;
+    /*justify-content: center;*/
+  }
+}
+
+@media (max-width:800px) {
+  #tournament-cards .container .card{
+    flex: 100%;
+    max-width: 100%;
+    justify-content: center;
+  }
+}
+
+#new-tournament-btn{
+    display: inline-block;
+    line-height: 25px;
+    margin-left: 30px;
+    width: 35px;
+    height: 35px;
+    border: 1px solid;
+    border-radius: 50%;
+    text-align: center;
+    transition-property: background-color, color;
+    transition-duration: 0.3s;
+}
+
+#new-tournament-btn:hover{
+    background-color: #302929;
+    color: white;
+    cursor: pointer;
+}
+
+.card:hover {
+    cursor: pointer;
+}
+
+.card-body{
+    padding: .75rem 1.25rem;
+}
+
+

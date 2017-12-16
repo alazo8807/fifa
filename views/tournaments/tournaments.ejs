@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <title>yourfifadaddy</title>
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="/app.css" type="text/css" />
+  </head>
+  <body>
+    <head>
+      
+    </head>  
+    
+    <section id="tournament-cards">
+      <h1>My Tournaments <a href="/tournaments/new"><span id="new-tournament-btn">+</span></a></h1>
+      <div class="container">
+        <% tournaments.forEach(function(tournament){ %>
+        
+          <div class="card bg-light mb-3">
+            <div class="card-header"><%= tournament.name %></div>
+            <div class="card-body">
+              <h4 class="card-title"><%= tournament.type %></h4>
+              <p class="card-text">Players: <%= tournament.nbr_of_players%></p>
+              <p class="card-text">Rounds: <%= tournament.nbr_of_matchs%></p>
+              <button type="button" class="btn btn-outline-success btn-sm">Clone</button>
+              <button type="button" class="btn btn-outline-danger btn-sm">Delete</button>
+            </div>
+            <div class="card-footer text-muted">
+              Created on <%= tournament.date_created.toLocaleDateString() %> at  <%= tournament.date_created.toTimeString().substr(0,8) %>
+            </div>
+          </div>
+          
+        <% }) %>
+      </div>
+    </section>
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <script src="https://use.fontawesome.com/bcbea1a7f2.js"></script>
+  </body>
+</html>

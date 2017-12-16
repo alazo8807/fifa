@@ -1,0 +1,23 @@
+<h1>Hello from new tournament</h1>
+
+<form action="/tournaments" method="POST">
+    <p>Name: <br>
+    <input type="text" name="name" placeholder="tournament name" required="true"></input>
+    </p> 
+    
+    <p>Type: <br>
+    <select name="type"> <!--Supplement an id here instead of using 'text'-->
+      <option value="League">League</option> 
+    </select>
+    </p>
+    
+    <p>Number of Players: <br>
+    <input type="number" name="nbr_of_players" min="2" placeholder="2"></input>
+    </p>
+    
+    <p>Number of Matches: <br>
+    <input type="number" name="nbr_of_matches" min="1" placeholder="1"></input>
+    </p>
+    
+    <button>Create</button>
+</form>
