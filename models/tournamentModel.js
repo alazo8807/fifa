@@ -14,10 +14,16 @@ var tournamentSchema = mongoose.Schema({
         type: Number,
         default: 2
     },
-    nbr_of_matchs: {
+    nbr_of_matches: {
         type: Number,
         default: 1
     }, 
+    players: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Player"
+        }
+    ],
     date_created: {
         type: Date,
         default: Date.now    
