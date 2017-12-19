@@ -25,8 +25,15 @@
               <h4 class="card-title"><%= tournament.type %></h4>
               <p class="card-text">Players: <%= tournament.nbr_of_players%></p>
               <p class="card-text">Rounds: <%= tournament.nbr_of_matches%></p>
-              <button type="button" class="btn btn-outline-success btn-sm">Clone</button>
-              <button type="button" class="btn btn-outline-danger btn-sm">Delete</button>
+              <div class="card-btns" style="display:flex;">
+                <form action="/tournaments/<%= tournament._id %>/?_method=CLONE" method="POST">
+                  <button class="btn btn-outline-success btn-sm">Clone</button>  
+                </form>   
+                <form action="/tournaments/<%= tournament._id %>/?_method=DELETE" method="POST">
+                  <button class="btn btn-outline-danger btn-sm">Delete</button>
+                </form>  
+              </div>
+              
             </div>
             <div class="card-footer text-muted">
               Created on <%= tournament.date_created.toLocaleDateString() %> at  <%= tournament.date_created.toTimeString().substr(0,8) %>

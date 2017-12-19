@@ -6,6 +6,11 @@ app.set('view engine','ejs');
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({extended:true}));
 
+// Seed database with teams
+var seedDb = require("./seed")
+seedDb();
+
+
 // Landing page Route
 app.get('/', function(req, res){
    res.send("Hello from landing page"); 

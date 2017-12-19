@@ -21,7 +21,8 @@ var tournamentSchema = mongoose.Schema({
     players: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "Player"
+            ref: "Player",
+            required: "Players cannot be empty"
         }
     ],
     date_created: {

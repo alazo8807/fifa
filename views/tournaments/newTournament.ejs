@@ -1,27 +1,69 @@
-<h1>Hello from new tournament</h1>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <title>yourfifadaddy</title>
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="/app.css" type="text/css" />
+  </head>
+  <body>
+    <head>
+      
+    </head> 
 
-<form action="/tournaments" method="POST">
-    <p>Name: <br>
-    <input type="text" name="name" placeholder="tournament name" required="true"></input>
-    </p> 
+    <section id="new-tournament">
+      <div class="container">
+        <h1>Hello from new tournament</h1>
+        
+        <form action="/tournaments" method="POST">
+            <div class="form-group row">
+              <label for="nameInput" class="col-md-2 col-form-label">Name:</label>
+              <div class="col-md-4">
+                <input class="form-control" type="text" placeholder="Tournament Name" name="name" id="nameInput" required="true">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="typeSelect" class="col-md-2 col-form-label">Type</label>
+                <div class="col-md-4">
+                  <select class="form-control" id="typeSelect">
+                    <option value="L">League</option>
+                    <option value="K">Knockout</option>
+                  </select>  
+                </div>
+            </div>
+            <div class="form-group row">
+              <label for="nbrPlayersInput" class="col-md-2 col-form-label">Number of Players:</label>
+              <div class="col-md-4">
+                <input class="form-control" type="number" placeholder="2" name="nbr_of_players" id="nbrPlayersInput" min="2" placeholder="2">
+              </div>
+            </div>
+             <div class="form-group row">
+              <label for="nbrMatchesInput" class="col-md-2 col-form-label">Number of Matches:</label>
+              <div class="col-md-4">
+                <input class="form-control" type="number" placeholder="1" name="nbr_of_matches" id="nbrMatchesInput" min="1" placeholder="1">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="playerNameInput" class="col-md-2 col-form-label">Player's Name:</label>
+              <div class="col-md-4">
+                <input class="form-control" type="text" placeholder="Player's name" name="player_name" id="playerNameInput" required="true">
+              </div>
+            </div>
+            
+            
+            <ul>
+              <li><input type="text" name="team_name" placeholder="Team"></input></li>
+            </ul>
+            
+            <button class="btn btn-primary">Create</button>
+        </form>  
+      </div>
+    </section>
     
-    <p>Type: <br>
-    <select name="type"> <!--Supplement an id here instead of using 'text'-->
-      <option value="League">League</option> 
-    </select>
-    </p>
-    
-    <p>Number of Players: <br>
-    <input type="number" name="nbr_of_players" min="2" placeholder="2"></input>
-    </p>
-    
-    <p>Number of Matches: <br>
-    <input type="number" name="nbr_of_matches" min="1" placeholder="1"></input>
-    </p>
-    
-    <p>Player's name: <br>
-    <input type="text" name="name" placeholder="tournament name" required="true"></input>
-    </p>
-    
-    <button>Create</button>
-</form>
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <script src="https://use.fontawesome.com/bcbea1a7f2.js"></script>
+  </body>
+</html>
