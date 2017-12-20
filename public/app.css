@@ -74,3 +74,24 @@ section{
     padding-right: 10px;
 }
 
+
+/*New Tournament*/
+#new-tournament .player-teams-container{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    /*justify-content: center;*/
+}
+
+/*#new-tournament .player-teams-container .player-teams-wrapper .player-form{*/
+/*   border-width: 10px 15px;*/
+/*   border-style: solid;*/
+/*   border-color: red; */
+/*   margin:0;*/
+/*} */
+
+/*#new-tournament .player-teams-container .player-teams-wrapper .team-form{*/
+/*   border: 15px solid blue;*/
+/*   margin:0;*/
+/*} */
+

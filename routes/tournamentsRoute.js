@@ -27,66 +27,115 @@ router.get('/new', function(req, res){
 
 // Create Route
 router.post('/', function(req, res){
-    const name  = req.body.name,
-        type = req.body.type,
-        nbr_of_matches = req.body.nbr_of_matches || 1,
-        nbr_of_players = req.body.nbr_of_players || 2;
-    
-    let players = [];
+   
     let teams = [];
     let teamsAdded = []; 
-    
-    teams.push({
-        name: req.body.team_name,
-        is_official_team: false
-    });
-    
+    let playersAdded = [];
     let tournament = {
-        name: name,
-        type: type,
-        nbr_of_players: nbr_of_players,
-        nbr_of_matches: nbr_of_matches,
+        name: req.body.name,
+        type: req.body.type,
+        nbr_of_players: req.body.nbr_of_players || 2,
+        nbr_of_matches: req.body.nbr_of_matches || 1,
         players: []
     }
 
-    // First add all the teams
-    var addTeams = new Promise(function(resolve, reject){
-        teams.forEach(function(team, i){
-            db.Team.create(team)
-            .then(function(teamCreated){ 
-                console.log("Team Created");
-                teamsAdded.push(teamCreated);
-                if(i === teams.length - 1) resolve(teamsAdded);
-            })
-            .catch(function(err){
-                console.log(err)
-                res.redirect('/tournaments');
-            })
-        })
-    })
+    console.log(req.body.players);
+
+    let players = req.body.players;
     
-    // Add players
-    addTeams.then(function(data){
-         players.push({
-            name: req.body.player_name,
-            teams: data
+    var addTeamsAndPlayers = new Promise(function(resolve, reject){
+        players.forEach(function(player, i){
+            var playerTeams = player.teams;
+            var addTeams = new Promise(function(resolve, reject){
+                playerTeams.forEach(function(team, j){
+                    db.Team.create({name: team, is_official_team: false})
+                    .then(function(teamCreated){ 
+                        console.log("Team Created");
+                        teamsAdded.push(teamCreated);
+                        if(j === playerTeams.length - 1) resolve(teamsAdded);
+                    })
+                    .catch(function(err){
+                        console.log(err)
+                        res.redirect('/tournaments');
+                    })
+                })
+            })
+            
+            // Add players
+            addTeams.then(function(data){
+                var newPlayer = {
+                    name: player.name,
+                    teams: data
+                };
+                return db.Player.create(newPlayer);
+            })
+            .then(function(playerCreated){
+                playersAdded.push(playerCreated);
+                if(i === players.length - 1) resolve(playersAdded);
+            });
         });
-        return db.Player.create(players);
     })
-    // Add Tournament
-    .then(function(playersCreated){
+        
+    addTeamsAndPlayers.then(function(playersCreated){
+        // Add Tournament
         console.log("Player Created");
         tournament.players=playersCreated;
         return db.Tournament.create(tournament)
+        
+        .then(function(playersCreated){
+            console.log("Player Created");
+            tournament.players=playersCreated;
+            return db.Tournament.create(tournament)
+        })
+        .then(function(tournamentCreated){
+            console.log("Tournament was created");
+            res.redirect('/tournaments');
+        })
+        .catch(function(err){
+            console.log(err);
+            res.redirect('/tournaments');
+        });
+    
     })
-    .then(function(tournamentCreated){
-        console.log("Tournament was created");
-        res.redirect('/tournaments');
-    })
-    .catch(function(err){
-        console.log(err);
-        res.redirect('/tournaments');
-    });
+    
+    // // First add all the teams
+    //         var addTeams = new Promise(function(resolve, reject){
+    //             teams.forEach(function(team, i){
+    //                 db.Team.create(team)
+    //                 .then(function(teamCreated){ 
+    //                     console.log("Team Created");
+    //                     teamsAdded.push(teamCreated);
+    //                     if(i === teams.length - 1) resolve(teamsAdded);
+    //                 })
+    //                 .catch(function(err){
+    //                     console.log(err)
+    //                     res.redirect('/tournaments');
+    //                 })
+    //             })
+    //         })
+    
+    // // Add players
+    // addTeams.then(function(data){
+    //      players.push({
+    //         name: req.body.player_name,
+    //         teams: data
+    //     });
+    //     return db.Player.create(players);
+    // })
+    // // Add Tournament
+    // .then(function(playersCreated){
+    //     console.log("Player Created");
+    //     tournament.players=playersCreated;
+    //     return db.Tournament.create(tournament)
+    // })
+    // .then(function(tournamentCreated){
+    //     console.log("Tournament was created");
+    //     res.redirect('/tournaments');
+    // })
+    // .catch(function(err){
+    //     console.log(err);
+    //     res.redirect('/tournaments');
+    // });
 });
 
 // Delete Route
