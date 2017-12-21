@@ -29,7 +29,7 @@ router.get('/new', function(req, res){
 router.post('/', function(req, res){
    
     let teams = [];
-    let teamsAdded = []; 
+    let teamsAdded = [[]]; 
     let playersAdded = [];
     let tournament = {
         name: req.body.name,
@@ -40,53 +40,60 @@ router.post('/', function(req, res){
     }
 
     console.log(req.body.players);
-
     let players = req.body.players;
     
+   
+
     var addTeamsAndPlayers = new Promise(function(resolve, reject){
         players.forEach(function(player, i){
-            var playerTeams = player.teams;
-            var addTeams = new Promise(function(resolve, reject){
-                playerTeams.forEach(function(team, j){
-                    db.Team.create({name: team, is_official_team: false})
-                    .then(function(teamCreated){ 
-                        console.log("Team Created");
-                        teamsAdded.push(teamCreated);
-                        if(j === playerTeams.length - 1) resolve(teamsAdded);
-                    })
-                    .catch(function(err){
-                        console.log(err)
-                        res.redirect('/tournaments');
+            (function(playerIndex){
+                var playerTeams = player.teams;
+                var addTeams = new Promise(function(resolve, reject){
+                    playerTeams.forEach(function(team, j){
+                        (function(playerIndex, teamIndex){   //by the time the player is created j might not be the desired value (closure)
+                            db.Team.create({name: team, is_official_team: false})
+                            .then(function(teamCreated){ 
+                                console.log("Team Created");
+                                console.log(teamIndex);
+                                teamsAdded[playerIndex].push(teamCreated);
+                                if(playerTeams.length - 1 === teamIndex ){
+                                    resolve(teamsAdded[playerIndex]);
+                                } 
+                            })
+                            .catch(function(err){
+                                console.log(err)
+                                res.redirect('/tournaments');
+                            })    
+                        })(playerIndex,j);
                     })
                 })
-            })
+                
+                // Add players
+                addTeams.then(function(data){
+                    // teamsAdded = [];    //clean teams added for the player.
+                    var newPlayer = {
+                        name: player.name,
+                        teams: data
+                    };
+                    return db.Player.create(newPlayer);
+                })
+                .then(function(playerCreated){
+                    console.log("Player Created");
+                    playersAdded.push(playerCreated);
+                    if(players.length - 1 === playerIndex) resolve(playersAdded);
+                
+                });    
             
-            // Add players
-            addTeams.then(function(data){
-                var newPlayer = {
-                    name: player.name,
-                    teams: data
-                };
-                return db.Player.create(newPlayer);
-            })
-            .then(function(playerCreated){
-                playersAdded.push(playerCreated);
-                if(i === players.length - 1) resolve(playersAdded);
-            });
+            })(i);
+                
         });
     })
         
     addTeamsAndPlayers.then(function(playersCreated){
         // Add Tournament
-        console.log("Player Created");
+        console.log("Players Created");
         tournament.players=playersCreated;
         return db.Tournament.create(tournament)
-        
-        .then(function(playersCreated){
-            console.log("Player Created");
-            tournament.players=playersCreated;
-            return db.Tournament.create(tournament)
-        })
         .then(function(tournamentCreated){
             console.log("Tournament was created");
             res.redirect('/tournaments');

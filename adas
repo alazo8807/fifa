@@ -1,0 +1,23 @@
+[33mcommit d6b7842e9c8751ce0c150be67a3c33468dc1263d[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: Alejandro Lazo <alazo8807@gmail.com>
+Date:   Wed Dec 20 03:22:34 2017 +0000
+
+    changes to tournamentsRoute
+
+[33mcommit 455e1f88deeaf5a9be789bf6be6c5f5fa6b17ccf[m
+Author: Alejandro Lazo <alazo8807@gmail.com>
+Date:   Tue Dec 19 02:54:55 2017 +0000
+
+    add teams, players model, add create and delete routes, cosmetic changes
+
+[33mcommit ebc87281f697bc2b6301b68eaa717ca993ce3a49[m
+Author: Alejandro Lazo <alazo8807@gmail.com>
+Date:   Mon Dec 18 04:34:27 2017 +0000
+
+    add team, player models
+
+[33mcommit 3ad4d5d20f5b0815e65fedc18176b5c9d1de52db[m
+Author: Alejandro Lazo <alazo8807@gmail.com>
+Date:   Sat Dec 16 21:36:58 2017 +0000
+
+    Add tournaments and new tournament pages
