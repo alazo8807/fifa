@@ -48,6 +48,7 @@ router.post('/', function(req, res){
         players.forEach(function(player, i){
             (function(playerIndex){
                 var playerTeams = player.teams;
+                teamsAdded.push([]);
                 var addTeams = new Promise(function(resolve, reject){
                     playerTeams.forEach(function(team, j){
                         (function(playerIndex, teamIndex){   //by the time the player is created j might not be the desired value (closure)
@@ -80,7 +81,7 @@ router.post('/', function(req, res){
                 .then(function(playerCreated){
                     console.log("Player Created");
                     playersAdded.push(playerCreated);
-                    if(players.length - 1 === playerIndex) resolve(playersAdded);
+                    if(players.length - 1 === playerIndex) return resolve(playersAdded);
                 
                 });    
             
